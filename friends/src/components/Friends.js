@@ -57,12 +57,12 @@ function Friends () {
             .then(res => {
                 setFriendsArray([
                     ...res.data
-                ]);
+                ])
                 setNewFriend({
                     name: '',
                     age: '',
                     email: ''
-                });
+                })
             })
             .catch(err => {
                 console.log(err);
