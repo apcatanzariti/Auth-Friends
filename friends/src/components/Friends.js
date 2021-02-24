@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { axiosWithAuth } from './../utils/axiosWithAuth';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Friend from './Friend';
 
 function Friends () {
     const [friendsArray, setFriendsArray] = useState([]);
     const [isAdding, setIsAdding] = useState(false);
+    const [error, setError] = useState('');
+    const [newFriend, setNewFriend] = useState({
+        name: '',
+        age: '',
+        email: ''
+    });
 
     useEffect(() => {
         getFriends();
@@ -27,6 +34,13 @@ function Friends () {
         // console.log(friendsArray);
     };
 
+    function handleChange(e) {
+        setNewFriend({
+            ...newFriend,
+            [e.target.name]: e.target.value
+        });
+    };
+
     function addingFriend(e){
         e.preventDefault();
         setIsAdding(!isAdding);
@@ -34,7 +48,26 @@ function Friends () {
 
     function addNewFriend(e) {
         e.preventDefault();
-        console.log('added new friend!');
+        // console.log('added new friend!');
+        if (newFriend.name === '' || newFriend.age === '' || newFriend.email === '') {
+            setError('One or more fields blank.')
+        } else {
+            axiosWithAuth()
+            .post('/api/friends', newFriend)
+            .then(res => {
+                setFriendsArray([
+                    ...res.data
+                ]);
+                setNewFriend({
+                    name: '',
+                    age: '',
+                    email: ''
+                });
+            })
+            .catch(err => {
+                console.log(err);
+            })
+        }
     };
 
     return (
@@ -43,39 +76,49 @@ function Friends () {
 
             {
                 !isAdding && (
+                    <div>
                     <button onClick={addingFriend}>Add a new Friend</button>
+                    <div><Link to='/delete-friend'>Delete Friends?</Link></div>
+                    </div>
                 )
             }
 
             {
                 isAdding && (
                     <div>
-                    <form>
+                    <form onSubmit={addNewFriend}>
 
                         <div>
                         <input 
                         type='text'
-                        name='newName'
+                        name='name'
+                        value={newFriend.name}
+                        onChange={handleChange}
                         placeholder='Name'/>
                         </div>
 
                         <div>
                         <input 
                         type='number'
-                        name='newAge'
+                        name='age'
+                        value={newFriend.age}
+                        onChange={handleChange}
                         placeholder='Age'/>
                         </div>
 
                         <div>
                         <input 
                         type='email'
-                        name='newEmail'
+                        name='email'
+                        value={newFriend.email}
+                        onChange={handleChange}
                         placeholder='Email'/>
                         </div>
-                        <button onClick={addNewFriend}>Submit Friend</button>
+                        <button>Submit Friend</button>
 
                     </form>
                     <button onClick={addingFriend}>Cancel</button>
+                    <div>{error}</div>
                     </div>
                 )
             }

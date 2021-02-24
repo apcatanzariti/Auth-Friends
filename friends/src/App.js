@@ -3,6 +3,7 @@ import Login from './components/Login';
 import Friends from './components/Friends';
 import PrivateRoute from './components/PrivateRoute';
 import HomePage from './components/HomePage';
+import DeleteFriend from './components/DeleteFriend';
 import { Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -15,6 +16,7 @@ function App() {
       <Switch>
             <Route path='/login' component={Login}/>
             <PrivateRoute path='/friends' component={Friends} />
+            <PrivateRoute path='/delete-friend' component={DeleteFriend} />
             <Route path='/' component={HomePage}/>
         </Switch>
     </StyledContainer>

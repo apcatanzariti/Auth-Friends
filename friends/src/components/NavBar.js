@@ -25,7 +25,7 @@ export default NavBar;
 
 const StyledNav = styled.div`
   //border: solid 1px #006eff;
-  border: solid 2px black;
+  border-bottom: solid 2px black;
   display: flex;
   justify-content: center;
 
