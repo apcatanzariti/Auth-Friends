@@ -24,6 +24,6 @@ function App() {
 export default App;
 
 const StyledContainer = styled.div`
-  border: solid 1px red;
+  // border: solid 1px red;
   text-align: center;
 `;

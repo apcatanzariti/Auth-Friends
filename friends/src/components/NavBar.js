@@ -1,6 +1,5 @@
 import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import { axiosWithAuth } from './../utils/axiosWithAuth';
 
 function NavBar () {
 
@@ -14,10 +13,10 @@ function NavBar () {
 
     return(
     <StyledNav>
-        <div><Link to='/'>Home Page</Link></div>
-        <div><Link to='/login'>Login</Link></div>
-        <div><Link to='/friends'>Friends</Link></div>
-        <div><Link onClick={logOut}>Logout</Link></div>
+        <StyledLink><Link to='/'>Home Page</Link></StyledLink>
+        <StyledLink><Link to='/login'>Login</Link></StyledLink>
+        <StyledLink><Link to='/friends'>Friends</Link></StyledLink>
+        <StyledLink><Link onClick={logOut}>Logout</Link></StyledLink>
     </StyledNav>
     );
 };
@@ -25,11 +24,25 @@ function NavBar () {
 export default NavBar;
 
 const StyledNav = styled.div`
-  border: solid 1px blue;
+  //border: solid 1px #006eff;
+  border: solid 2px black;
   display: flex;
   justify-content: center;
 
-    div {
-        margin: 2%;
+    a {
+        // border: solid 1px black;
+        //color: #006eff;
+        color: black;
+        text-decoration: none;
+        font-size: 1.3em;
     }
+
+    a:hover {
+        text-decoration: underline;
+    }
+`;
+
+const StyledLink = styled.div`
+    // border: solid 1px pink;
+    margin: 2%;
 `;
