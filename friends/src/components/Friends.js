@@ -75,6 +75,14 @@ function Friends () {
             <h1>Hello From Friends</h1>
 
             {
+                friendsArray.length === 0 && (
+                    <div>
+                        <h1>Loading Friends...</h1>
+                    </div>
+                )
+            }
+
+            {
                 !isAdding && (
                     <div>
                     <button onClick={addingFriend}>Add a new Friend</button>
